@@ -23,15 +23,14 @@ func NewJob() *Job {
 	}
 }
 
-// TurnOnRelay uses the Scrape function in the scrappers package to update
-// the events data in the DB. This is for concert event data
+// TurnOnRelay uses the duration string passed by parameter to know
+// when to turn on the water pump.
 func (j *Job) TurnOnRelay(duration string) {
-	started := time.Now()
-	fmt.Println("*** [*] CRON job 'TurnOnRelay' started ***")
-	fmt.Printf("*** [*] CRON job 'TurnOnRelay' start time: %v ***\n", started)
 
 	j.Cron.AddFunc(duration, func() {
-
+		started := time.Now()
+		fmt.Println("*** [*] CRON job 'TurnOnRelay' started ***")
+		fmt.Printf("*** [*] CRON job 'TurnOnRelay' start time: %v ***\n", started)
 		client := &http.Client{}
 
 		value := `1`
@@ -65,14 +64,14 @@ func (j *Job) TurnOnRelay(duration string) {
 	j.Cron.Start()
 }
 
-// TurnOffRelay uses the Scrape function in the scrappers package to update
-// the events data in the DB. This is for concert event data
+// TurnOffRelay uses the duration string passed by parameter to know
+// when to turn off the water pump.
 func (j *Job) TurnOffRelay(duration string) {
-	started := time.Now()
-	fmt.Println("*** [*] CRON job 'TurnOffRelay' started ***")
-	fmt.Printf("*** [*] CRON job 'TurnOffRelay' start time: %v ***\n", started)
 
 	j.Cron.AddFunc(duration, func() {
+		started := time.Now()
+		fmt.Println("*** [*] CRON job 'TurnOffRelay' started ***")
+		fmt.Printf("*** [*] CRON job 'TurnOffRelay' start time: %v ***\n", started)
 
 		client := &http.Client{}
 
